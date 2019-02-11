@@ -28,12 +28,12 @@
             <form class="form" id="l_form" method="post" action="">
 				<div class="login-body">
 					<span class="input-container">
-						<input type="email" id="l_m" name="email" autocomplete="new-password" placeholder="Adresse email">
+						<input type="email" id="l_m" name="email" placeholder="Adresse email">
 						<span class="subline"></span>
 					</span>
 									
 					<span class="input-container">
-						<input type="password" id="l_p" name="password" autocomplete="new-password" placeholder="Mot de passe">
+						<input type="password" id="l_p" name="password" placeholder="Mot de passe">
 						<span class="subline"></span>
 					</span>
                 </div>

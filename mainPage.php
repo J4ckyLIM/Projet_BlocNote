@@ -14,11 +14,11 @@
             <form action="" method="post">
                 <div>
                     <label for="noteTitle">Titre :</label>
-                    <input type="text" id="noteTitle" name="user_noteTitle" placeholder="Titre de la note">
+                    <input type="text" id="noteTitle" name="user_noteTitle" value="" placeholder="Titre de la note">
                 </div>
                 <div>
                     <label for="noteDescription">Description :</label>
-                    <input id="text" id="noteDescription" name="user_noteDescription" placeholder="Description de la note (20 caractères maximum)" maxlength="20">
+                    <input id="text" id="noteDescription" name="user_noteDescription" value="" placeholder="Description de la note (20 caractères maximum)" maxlength="20">
                 </div>
 <!-- Barre d'outil tel que la fonction gras/italic/souligner...-->
                 <div class="toolbar" role="Barre d'outil">
@@ -30,7 +30,7 @@
                 <a id="olListButton" class="toolButton" href="javascript:void('Insérer/Supprimer la liste numérotée')" title="Liste numérotée" role="button"><i class="fas fa-list-ol"></i></a>
                 </div>  
                 <div>
-                        <textarea id="noteContent" name="user_noteContent"></textarea>
+                        <textarea id="noteContent" name="user_noteContent" value=""></textarea>
                     </div>
                 <div class="button">
                     <button type="submit">Enregistrer</button>

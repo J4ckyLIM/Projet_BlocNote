@@ -14,19 +14,19 @@
             <form action="" method="post">
                 <div>
                     <label for="lastName">Nom :</label>
-                    <input type="text" id="lastName" name="user_lastName" placeholder="Votre Nom">
+                    <input type="text" id="lastName" name="user_lastName" value="" placeholder="Votre Nom">
                 </div>
                 <div>
                     <label for="firstName">Prénom :</label>
-                    <input id="text" id="firstName" name="user_firstName" placeholder="Votre Prénom">
+                    <input type="text" id="firstName" name="user_firstName" value="" placeholder="Votre Prénom">
                 </div>
                 <div>
                     <label for="mail">e-mail :</label>
-                    <input type="email" id="mail" name="user_mail" placeholder="Votre e-mail">
+                    <input type="email" id="mail" name="user_mail" value="" placeholder="Votre e-mail">
                 </div>
                 <div>
                     <label for="pass">Mot de passe (8 caractères minimum):</label>
-                    <input type="password" id="pass" name="password" minlength="8" required placeholder="Votre mot de passe">
+                    <input type="password" id="pass" name="password" minlength="8" maxlength="20" value="" required placeholder="Votre mot de passe">
                 </div>
                 <div class="button">
                     <button type="submit">Envoyer</button>
