@@ -40,6 +40,7 @@
 -->
 //////////////////////////////////////////////////////////
 <?php
+require "connectBDD.php";
 // on teste si le visiteur a soumis le formulaire
 if (isset($_POST['inscription']) && $_POST['inscription'] == 'Je m\'inscris') {
 	// on vérifie l'existence des variables et si elles ne sont pas vides
@@ -53,20 +54,20 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Je m\'inscris') {
 		$erreur = 'Les 2 mots de passe sont différents.';
 	}
 	else {
-		$base = mysqli_connect ('localhost:8000', 'email', 'password');
-		mysqli_select_db ('blocnotedatabase', $base);
-
+        $bdd = connexion_BDD();
 		// on vérifie que ce login n'est pas déjà utilisé par quelqu'un d'autre
-		$sql = 'SELECT count(*) FROM member WHERE email="'.mysqli_escape_string($_POST['email']).'"';
+		$sql = 'SELECT * FROM member WHERE email="'.mysqli_escape_string($_POST['email']).'"';
 		$req = mysqli_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error());
 		$data = mysqli_fetch_array($req);
 
 		if ($data[0] == 0) {
-        $sql = 'INSERT INTO member VALUES("", "'.mysqli_escape_string($_POST['lastName']).'",
-                                            "'.mysqli_escape_string($_POST['firstName']).'",
-                                            "'.mysqli_escape_string($_POST['email']).'",
-                                            "'.mysqli_escape_string(md5($_POST['pass'])).'")';
-		mysqli_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysqli_error());
+        
+		$req = $bdd->prepare("INSERT INTO member(member_LastName,member_FirstName,email,pass_md5) 
+					            VALUES(:lastName,:firstName,:email,:pass);");
+		$req->execute(array("member_LastName" => $lastName, 
+                            "member_FirstName" => $firstName, 
+                            "email" => $email, 
+                            "pass_md5" => $pass));
 
 		session_start();
 		$_SESSION['email'] = $_POST['email'];
@@ -93,7 +94,7 @@ Inscription à l'espace membre de YAN :<br />
 <form action="signup.php" method="post">
 Nom: <input type="text" name="lastName" value="<?php if (isset($_POST['lastName'])) echo htmlentities(trim($_POST['lastName'])); ?>" placeholder="Votre Nom"><br />
 Prénom: <input type="text" name="firstName" value="<?php if (isset($_POST['firstName'])) echo htmlentities(trim($_POST['firstName'])); ?>" placeholder="Votre Prénom"><br />
-E-mail : <input type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>" placeholder="Votre Email"><br />
+E-mail : <input type="email" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>" placeholder="Votre Email"><br />
 Mot de passe : <input type="password" name="pass" minlength="8" value="<?php if (isset($_POST['pass'])) echo htmlentities(trim($_POST['pass'])); ?>"  placeholder="Votre mot de passe"><br />
 Confirmation du mot de passe : <input type="password" name="pass_confirm" value="<?php if (isset($_POST['pass_confirm'])) echo htmlentities(trim($_POST['pass_confirm'])); ?>" placeholder="Confirmation du mot de passe"><br />
 <input type="submit" name="inscription" value="Je m'inscris">
