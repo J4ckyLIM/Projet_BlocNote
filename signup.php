@@ -4,8 +4,9 @@
 
 <?php
 require "connectBDD.php";
-// on teste si le visiteur a soumis le formulaire
 $bdd = connexion_bdd();
+// on teste si le visiteur a soumis le formulaire
+
 
 if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
 
@@ -22,20 +23,19 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
 		$erreur = 'Les 2 mots de passe sont différents.';
 	}
 	else {
-		// on vérifie que ce login n'est pas déjà utilisé par quelqu'un d'autre
-		//$sql = 'SELECT * FROM member WHERE email="'.mysqli_escape_string($_POST['email']).'"';
+        // on vérifie que ce login n'est pas déjà utilisé par quelqu'un d'autre
+        
+		//$sql = 'SELECT count * FROM member WHERE email="'.mysqli_escape_string($_POST['email']).'"';
 		//$req = mysqli_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error());
         //$data = mysqli_fetch_array($req);
         
         $lastName = htmlspecialchars($_POST['lastName']);
 		$firstName = htmlspecialchars($_POST['firstName']);
 		$email = htmlspecialchars($_POST['email']);
-		$pass = htmlspecialchars($_POST['pass']);
-
-		if ($data[0] == 0) {
+		$pass = htmlspecialchars(md5($_POST['pass']));
         
-		$req = $bdd->prepare("INSERT INTO member(lastName,firstName,email,pass_md5) 
-					            VALUES(:lastName,:firstName,:email,:pass);");
+	    $req = $bdd->prepare("INSERT INTO member(lastName,firstName,email,pass_md5)
+					          VALUES(:lastName,:firstName,:email,:pass);");
 		$req->execute(array("lastName" => $lastName, 
                             "firstName" => $firstName, 
                             "email" => $email, 
@@ -49,10 +49,10 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
 		header('Location: index.php');
 		exit();
 		}
-		else {
+		/* else {
 		$erreur = 'Un membre possède déjà ce login.';
-		}
-	}
+		} */
+	//}
 	}
 	else {
 	$erreur = 'Au moins un des champs est vide.';

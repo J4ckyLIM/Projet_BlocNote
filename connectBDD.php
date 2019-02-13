@@ -6,7 +6,7 @@ function connexion_bdd() {
         $db = "blocnotedb";
         $user = "root";
         $pass = ""; 
-        $port = 3306;
+        $port = 3308;
         $bdd = new PDO(
             "mysql:host=$host;port=$port;dbname=$db",
             $user,
