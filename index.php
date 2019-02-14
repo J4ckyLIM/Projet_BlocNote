@@ -11,22 +11,22 @@ if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 
 	$bdd = connexion_bdd();
 
-	// on teste si une entrée de la base contient ce couple login / pass
-	$test = 'SELECT count(*) FROM membre WHERE email="'.mysql_escape_string($_POST['email']).'" AND pass_md5="'.mysql_escape_string(md5($_POST['pass'])).'"';
-	$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-	$data = mysql_fetch_array($req);
+	$isPasswordCorrect = password_verify($_POST['pass'], $resultat['pass']);
 
-	mysql_free_result($req);
-	mysql_close();
 
-	// si on a une réponse, alors l'utilisateur est un membre et on le redirige vers la page des notes
+	// on regarde si email et pass concorde avec une coupe dans la bdd
+	$req = $bdd->prepare('SELECT id, pass FROM member WHERE email = :email');
+	$req->execute(array('email' => $email));
+	$resultat = $req->fetch();
+
+	// si c'est le cas, alors l'utilisateur est un membre et on le redirige vers la page des notes
 	if ($data[0] == 1) {
 		session_start();
 		$_SESSION['email'] = $_POST['email'];
 		header('Location: YANnote.php');
 		exit();
 	}
-	// si rien ne concorde, le visiteur s'est trompé dans son login ou dans son mot de passe
+	// si rien ne concorde, le mdr ou l'email ne correspond pas
 	elseif ($data[0] == 0) {
 		$erreur = 'Le compte n\'est pas reconnu';
 	}

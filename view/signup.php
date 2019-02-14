@@ -4,14 +4,78 @@
 
 <?php
 require "connectBDD.php";
-$bdd = connexion_bdd();
+require_once "class/database.php";
+
+
+function insertMember()
+{
+	$bdd = new database();
+	$bdd->connexion();
+	$lastName = $_POST['lastName'];
+	$firstName = $_POST['firstName'];
+	$email = $_POST['email'];
+	$password = password_hash($_POST['pass']);
+	$query = $bdd->getBdd()->prepare($bdd->addMember());
+	$array = array(
+		'lastName' => $lastName,
+		'firstName' => $firstName,
+		'email' => $email,
+		'pass' => $password);
+	$query->execute($array);
+	
+}
+
+if(isset($_POST['inscription'])){
+	insertMember();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // on teste si le visiteur a soumis le formulaire
 
 
-if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
+/*if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
 
     // on vérifie l'existence des variables et si elles ne sont pas vides
-    
     if ((isset($_POST['lastName']) && !empty($_POST['lastName']))&&
         (isset($_POST['firstName']) && !empty($_POST['firstName']))&&
         (isset($_POST['email']) && !empty($_POST['email'])) && 
@@ -23,42 +87,47 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
 		$erreur = 'Les 2 mots de passe sont différents.';
 	}
 	else {
-        // on vérifie que ce login n'est pas déjà utilisé par quelqu'un d'autre
-        
-		//$sql = 'SELECT count * FROM member WHERE email="'.mysqli_escape_string($_POST['email']).'"';
-		//$req = mysqli_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error());
-        //$data = mysqli_fetch_array($req);
-        
-        $lastName = htmlspecialchars($_POST['lastName']);
+
+		$lastName = htmlspecialchars($_POST['lastName']);
 		$firstName = htmlspecialchars($_POST['firstName']);
 		$email = htmlspecialchars($_POST['email']);
-		$pass = htmlspecialchars(md5($_POST['pass']));
-        
-	    $req = $bdd->prepare("INSERT INTO member(lastName,firstName,email,pass_md5)
-					          VALUES(:lastName,:firstName,:email,:pass);");
-		$req->execute(array("lastName" => $lastName, 
-                            "firstName" => $firstName, 
-                            "email" => $email, 
-                            "pass_md5" => $pass));
-        $req->closeCursor();
+		$pass = htmlspecialchars(password_hash($_POST['pass'], PASSWORD_DEFAULT));
 
-        echo "<div class='alert alert-success'>Le compte a été crée.</div>";
+        // on vérifie que ce login n'est pas déjà utilisé par quelqu'un d'autre
+        $bdd = connexion_bdd();
+		$sql = $bdd->prepare('SELECT COUNT(*) AS count_email FROM member WHERE email= :email');
+		$sql->execute(array("email" => $email));
+		$test = $sql->fetch();
+		//var_dump($test);
 
+		if($test['count_email'] == 0){
+			$req = $bdd->prepare("INSERT INTO member(lastName,firstName,email,password)
+					          VALUES(:lastName,:firstName,:email,:password);");
+			$req->execute(array("lastName" => $lastName, 
+								"firstName" => $firstName, 
+								"email" => $email, 
+								"password" => $pass)); 
+
+		echo "<div class='alert alert-success'>Le compte a été crée.</div>";
+
+		// une fois le compte créer, l'utilisateur est redirigé sur la page principal
 		session_start();
 		$_SESSION['email'] = $_POST['email'];
-		header('Location: index.php');
+		('Location: index.php');
 		exit();
 		}
-		/* else {
+		else {
 		$erreur = 'Un membre possède déjà ce login.';
-		} */
-	//}
+		} 
+		}
 	}
 	else {
 	$erreur = 'Au moins un des champs est vide.';
 	}
 }
+*/
 ?>
+
 <html>
 <head>
 <title>Inscription YAN</title>
