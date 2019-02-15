@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="blocnote.css">
 <?php
 
-require_once "connectBDD.php";
 // on teste si le visiteur a soumis le formulaire de connexion
 
 if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
@@ -51,7 +50,7 @@ Email : <input type="text" name="email" value="<?php if (isset($_POST['email']))
 Mot de passe : <input type="password" name="pass" value="<?php if (isset($_POST['pass'])) echo htmlentities(trim($_POST['pass'])); ?>"><br />
 <input type="submit" name="connexion" value="Connexion">
 </form>
-<a href="signup.php">Vous inscrire</a>
+<a href="view/register.php">Vous inscrire</a>
 <?php
 if (isset($erreur)) echo '<br /><br />',$erreur;
 ?>

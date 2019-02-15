@@ -36,7 +36,7 @@ class database
     
     function addMember()
     {
-        return 'INSERT INTO member(lastName, firstName, email, password) VALUES(:lastName, :firstName, :email, :password)';
+        return 'INSERT INTO member(lastName, firstName, email, password) VALUES(:lastName, :firstName, :email, :pass)';
     }
 }
 
