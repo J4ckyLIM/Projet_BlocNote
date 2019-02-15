@@ -23,7 +23,7 @@ class memberManager
         return 'DELETE FROM member WHERE id= :id';
     }
 
-    function insertMember()
+    public function insertMember()
     {
 	$bdd = new database();
 	$bdd->connexion();
@@ -51,10 +51,34 @@ class memberManager
             session_start();
             $_SESSION['id'] = $result['id'];
             $_SESSION['email'] = $_POST['email'];
+            //header('Location: YANnote.php');
             echo 'Vous êtes connecté !';
         }
         else {
             echo 'Mauvais identifiant ou mot de passe !';
         }
     }
+
+    function checkUniq()
+    {
+        $bdd = new database();
+        $bdd->connexion();
+        $query = $bdd->getBdd()->prepare($bdd->isUniqMember());
+        $query->execute(array('email' => $_POST['email']));
+        $test = $query->fetch();
+        if($test['count_email'] == 0){ 
+            $this->insertMember();
+            echo "<div class='alert alert-success'>Le compte a été crée.</div>";
+
+    // une fois le compte créer, l'utilisateur est redirigé sur la page principale
+            session_start();
+            $_SESSION['email'] = $_POST['email'];
+            ('Location: index.php');
+            exit();
+        }   
+        else{
+            $erreur = 'Un membre possède déjà ce login.';
+        }if (isset($erreur)) echo '<br />',$erreur;
+    }     
+    
 }

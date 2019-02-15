@@ -21,31 +21,14 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
             $erreur = 'Les 2 mots de passe sont différents.';
         }
 
-        // On vérifie que l'email servant de login n'est pas déjà attribué/utilisé
+        // On vérifie que l'email servant de login n'est pas déjà attribué/utilisé grâce à la fonction checkUniq()
         else{
-            $bdd = new database();
             $mm = new memberManager();
-            $bdd->connexion();
-            $query = $bdd->getBdd()->prepare($bdd->isUniqMember());
-            $query->execute(array('email' => $_POST['email']));
-            $test = $query->fetch();
-            if($test['count_email'] == 0){ 
-                $mm->insertMember();
-                echo "<div class='alert alert-success'>Le compte a été crée.</div>";
-
-        // une fois le compte créer, l'utilisateur est redirigé sur la page principale
-                session_start();
-                $_SESSION['email'] = $_POST['email'];
-                ('Location: index.php');
-                exit();
-            }   
-            else{
-                $erreur = 'Un membre possède déjà ce login.';
-            }
+            $mm->checkUniq();
         } 
     }
     else{
-            $erreur = "Au moins un des champs est vide.";
+        $erreur = "Au moins un des champs est vide.";
     }
 }
 
