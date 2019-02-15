@@ -21,4 +21,18 @@ class memberManager
     {
         return 'DELETE FROM member WHERE id= :id';
     }
+
+    function insertMember()
+    {
+	$bdd = new database();
+	$bdd->connexion();
+	$query = $bdd->getBdd()->prepare($bdd->addMember());
+	$array = array(
+		'lastName' => $_POST['lastName'],
+		'firstName' => $_POST['firstName'],
+		'email' => $_POST['email'],
+		'pass' => password_hash($_POST['pass'], PASSWORD_DEFAULT));
+    $query->execute($array);
+    $query->closeCursor();
+	}
 }

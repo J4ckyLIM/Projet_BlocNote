@@ -5,28 +5,48 @@
 <?php
 //require "connectBDD.php";
 require_once "../class/database.php";
+require_once "../class/memberManager.php";
 
+// Vérification si tout les champs sont remplis à l'inscription
+if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
+    // on vérifie l'existence des variables et si elles ne sont pas vides
+    if ((isset($_POST['lastName']) && !empty($_POST['lastName']))&&
+        (isset($_POST['firstName']) && !empty($_POST['firstName']))&&
+        (isset($_POST['email']) && !empty($_POST['email'])) && 
+        (isset($_POST['pass']) && !empty($_POST['pass'])) && 
+        (isset($_POST['pass_confirm']) && !empty($_POST['pass_confirm']))) {
+        
+        // On vérifie la concordance des 2 mots de passe
+        if ($_POST['pass'] != $_POST['pass_confirm']) {
+            $erreur = 'Les 2 mots de passe sont différents.';
+        }
 
-function insertMember()
-{
-	$bdd = new database();
-	$bdd->connexion();
-	/*$lastName = $_POST['lastName'];
-	$firstName = $_POST['firstName'];
-	$email = $_POST['email'];
-	$password = password_hash($_POST['pass'], PASSWORD_DEFAULT); */
-	$query = $bdd->getBdd()->prepare($bdd->addMember());
-	$array = array(
-		'lastName' => $_POST['lastName'],
-		'firstName' => $_POST['firstName'],
-		'email' => $_POST['email'],
-		'pass' => password_hash($_POST['pass'], PASSWORD_DEFAULT));
-	$query->execute($array);
-	
-}
+        // On vérifie que l'email servant de login n'est pas déjà attribué/utilisé
+        else{
+            $bdd = new database();
+            $mm = new memberManager();
+            $bdd->connexion();
+            $query = $bdd->getBdd()->prepare($bdd->isUniqMember());
+            $query->execute(array('email' => $_POST['email']));
+            $test = $query->fetch();
+            if($test['count_email'] == 0){ 
+                $mm->insertMember();
+                echo "<div class='alert alert-success'>Le compte a été crée.</div>";
 
-if(isset($_POST['inscription'])){
-	insertMember();
+        // une fois le compte créer, l'utilisateur est redirigé sur la page principale
+                session_start();
+                $_SESSION['email'] = $_POST['email'];
+                ('Location: index.php');
+                exit();
+            }   
+            else{
+                $erreur = 'Un membre possède déjà ce login.';
+            }
+        } 
+    }
+    else{
+            $erreur = "Au moins un des champs est vide.";
+    }
 }
 
 ?>

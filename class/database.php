@@ -38,5 +38,10 @@ class database
     {
         return 'INSERT INTO member(lastName, firstName, email, password) VALUES(:lastName, :firstName, :email, :pass)';
     }
+
+    function isUniqMember()
+    {
+        return 'SELECT COUNT(*) AS count_email FROM member WHERE email= :email';
+    }
 }
 
