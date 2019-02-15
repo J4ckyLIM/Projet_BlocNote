@@ -6,11 +6,15 @@
 require_once "class/memberManager.php";
 require_once "class/database.php";
 
+
+// On vérifie que l'utilisateur a entré ses identifiants 
 if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 	if ((isset($_POST['email']) && !empty($_POST['email'])) && (isset($_POST['pass']) && !empty($_POST['pass']))) {
 		$check = new memberManager();
-		$check->findMember();}}
-		
+		$check->findMember();
+	}
+}
+
 ?>
 <head>
 <title>Accueil YAN</title>

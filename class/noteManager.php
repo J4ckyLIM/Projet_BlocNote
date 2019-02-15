@@ -1,11 +1,11 @@
 <?php
-
+require_once "database.php";
 class noteManager
 {  
-  function selectAllNote()
+  /*function selectAllNote()
   {
-      return 'SELECT * FROM note';
-  }
+      return 'SELECT title, description, content FROM note';
+  } */
 
   function selectNoteId()
   {
@@ -21,7 +21,32 @@ class noteManager
   {
       return 'DELETE FROM note WHERE id= :id';
   }
- 
+
+  /* Fonction qui permet de recuperer TOUTES les données des notes sous forme d'un tableau */
+  function listAllNote(){
+      $bdd = new database();
+      $bdd->connexion();
+      $query = $bdd->getBdd()->prepare('SELECT title, description, content FROM note');
+
+      echo '<table>';
+      echo '<tr>';
+      echo '<th>'. "Titre".'</tr>';
+      echo '<th>'. "Description".'</tr>';
+      echo '<th>'. "Contenu".'</tr>';
+      echo '<tr>';
+
+      while ($data = $query->fetch()){
+          echo '<tr>';
+          echo '<th>'.$data['title'].'</tr>';
+          echo '<th>'.$data['description'].'</tr>';
+          echo '<th>'.$data['content'].'</tr>';
+          echo '<th>'.'<a id="link_update_note" href="editNote.php?id='.$data['id'].'">'."Modifier".'</a>'.'</th>';
+          echo '<th>'.'<a id="link_delete_note" href="member/deleteNote.php?id='.$data['id'].'">'."Supprimer".'</a>'.'</th>';
+      }
+
+      echo '</table>';
+      $query->closeCursor();
+  }
 
   
   

@@ -23,11 +23,13 @@ class memberManager
         return 'DELETE FROM member WHERE id= :id';
     }
 
+
+    /* Fonction pour ajouter un membre à la BDD */
     public function insertMember()
     {
 	$bdd = new database();
 	$bdd->connexion();
-	$query = $bdd->getBdd()->prepare($bdd->addMember());
+	$query = $bdd->getBdd()->prepare('INSERT INTO member(lastName, firstName, email, password) VALUES(:lastName, :firstName, :email, :pass)');
 	$array = array(
 		'lastName' => $_POST['lastName'],
 		'firstName' => $_POST['firstName'],
@@ -37,11 +39,13 @@ class memberManager
     $query->closeCursor();
     }
     
+
+    /* Fonction qui permet la connexion de l'utilisateur en vérifiant email et mot de passe */
     function findMember()
     {
         $bdd = new database();
         $bdd->connexion();
-        $query = $bdd->getBdd()->prepare($bdd->selectMemberLogs());
+        $query = $bdd->getBdd()->prepare('SELECT id, password FROM member WHERE email= :email');
         $query->execute(array('email' => $_POST['email']));
         $result = $query->fetch();
     
@@ -51,7 +55,9 @@ class memberManager
             session_start();
             $_SESSION['id'] = $result['id'];
             $_SESSION['email'] = $_POST['email'];
-            //header('Location: YANnote.php');
+
+            // l'utilisateur est renvoyé sur la liste des notes une fois connecté
+            header('Location: view/noteListe.php');
             echo 'Vous êtes connecté !';
         }
         else {
@@ -59,11 +65,12 @@ class memberManager
         }
     }
 
+    /* Fonction pour prouver l'unicité d'un email/identifiant */
     function checkUniq()
     {
         $bdd = new database();
         $bdd->connexion();
-        $query = $bdd->getBdd()->prepare($bdd->isUniqMember());
+        $query = $bdd->getBdd()->prepare('SELECT COUNT(*) AS count_email FROM member WHERE email= :email');
         $query->execute(array('email' => $_POST['email']));
         $test = $query->fetch();
         if($test['count_email'] == 0){ 
@@ -73,12 +80,12 @@ class memberManager
     // une fois le compte créer, l'utilisateur est redirigé sur la page principale
             session_start();
             $_SESSION['email'] = $_POST['email'];
-            ('Location: index.php');
             exit();
+            header('Location: class/noteListe.php');
         }   
         else{
-            $erreur = 'Un membre possède déjà ce login.';
-        }if (isset($erreur)) echo '<br />',$erreur;
+            echo 'Un membre possède déjà ce login.';
+        }
     }     
     
 }
