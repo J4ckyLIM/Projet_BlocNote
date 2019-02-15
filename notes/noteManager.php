@@ -1,15 +1,46 @@
 <?php
 
 class noteManager
-{
-  private $_db; // Instance de PDO
-
-  public function __construct($db)
+{  
+  function selectAllNote()
   {
-    $this->setDb($db);
+      return 'SELECT * FROM note';
   }
 
-  public function addNote(note $note)
+  function selectNoteId()
+  {
+      return 'SELECT * FROM note WHERE id= :id';
+  }
+
+  function updateNoteId()
+  {
+      return 'UPDATE note SET title= :title, description= :description, content= :content WHERE id= :id';
+  }
+
+  function deleteNoteId()
+  {
+      return 'DELETE FROM note WHERE id= :id';
+  }
+ 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /*public function addNote(note $note)
   {
     $q = $this->_db->prepare('INSERT INTO note(title, description, content) VALUES(:title, :description, :content)');
 
@@ -51,19 +82,4 @@ class noteManager
   }
 
   */
-
-  public function updateMember(member $member)
-  {
-    $q = $this->_db->prepare('UPDATE member SET email = :email, password = :password WHERE id = :id');
-
-    $q->bindValue(':email', $member->setEmail(), PDO::PARAM_INT);
-    $q->bindValue(':password', $perso->setPassword(), PDO::PARAM_INT);
-
-    $q->execute();
-  }
-
-  public function setDb(PDO $db)
-  {
-    $this->_db = $db;
-  }
 }

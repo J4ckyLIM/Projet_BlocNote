@@ -43,5 +43,10 @@ class database
     {
         return 'SELECT COUNT(*) AS count_email FROM member WHERE email= :email';
     }
+
+    function selectMemberLogs()
+    {
+        return 'SELECT id, password FROM member WHERE email= :email';
+    }
 }
 

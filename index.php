@@ -3,6 +3,69 @@
 <link rel="stylesheet" href="blocnote.css">
 <?php
 
+require_once "class/memberManager.php";
+require_once "class/database.php";
+
+if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
+	if ((isset($_POST['email']) && !empty($_POST['email'])) && (isset($_POST['pass']) && !empty($_POST['pass']))) {
+		$check = new memberManager();
+		$check->findMember();}}
+
+
+
+
+
+
+
+
+
+
+//  Récupération de l'utilisateur et de son pass hashé
+/*$query = $bdd->prepare('SELECT id, pass FROM member WHERE email = :email');
+$query->execute(array(
+    'email' => $email));
+$result = $query->fetch();
+
+// Comparaison du pass envoyé via le formulaire avec la base
+$isPasswordCorrect = password_verify($_POST['pass'], $resultat['pass']);
+
+if (!$result)
+{
+    echo 'Mauvais identifiant ou mot de passe !';
+}
+else
+{
+    if ($isPasswordCorrect) {
+        session_start();
+        $_SESSION['id'] = $resultat['id'];
+        $_SESSION['email'] = $email;
+        echo 'Vous êtes connecté !';
+    }
+    else {
+        echo 'Mauvais identifiant ou mot de passe !';
+    }
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 // on teste si le visiteur a soumis le formulaire de connexion
 
 if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
@@ -38,6 +101,7 @@ if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 	$erreur = 'Au moins un des champs est vide.';
 	}
 }
+*/
 ?>
 <head>
 <title>Accueil YAN</title>
