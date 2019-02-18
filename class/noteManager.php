@@ -48,6 +48,22 @@ class noteManager
       $query->closeCursor();
   }
 
+
+  // Fonction permettant de sauvegarder une note dans la BDD
+  function saveNote(){
+    $bdd = new database();
+    $bdd->connexion();
+    $query = $bdd->getBdd()->prepare('INSERT INTO note(title, description, content) VALUES(:title, :description, :content)');
+    $array = array(
+                    'title' => $_POST['title'],
+                    'description' => $_POST['description'],
+                    'content' => $_POST['content']);
+    $query->execute($array);
+    $query->closeCursor();
+    header('Location: view/noteListe.php');
+    echo 'La note est enregistrée';
+  }
+
   
   
   
