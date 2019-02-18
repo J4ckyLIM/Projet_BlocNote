@@ -2,15 +2,6 @@
 require_once "database.php";
 class noteManager
 {  
-  /*function selectAllNote()
-  {
-      return 'SELECT title, description, content FROM note';
-  } */
-
-  function selectNoteId()
-  {
-      return 'SELECT * FROM note WHERE id= :id';
-  }
 
   function updateNoteId()
   {
@@ -26,13 +17,14 @@ class noteManager
   function listAllNote(){
       $bdd = new database();
       $bdd->connexion();
-      $query = $bdd->getBdd()->prepare('SELECT title, description, content FROM note');
+      $query = $bdd->getBdd()->prepare('SELECT title, description, content, save_date FROM note WHERE id=1');
 
       echo '<table>';
       echo '<tr>';
-      echo '<th>'. "Titre".'</tr>';
-      echo '<th>'. "Description".'</tr>';
-      echo '<th>'. "Contenu".'</tr>';
+      echo '<th>'."Titre".'</tr>';
+      echo '<th>'."Description".'</tr>';
+      echo '<th>'."Contenu".'</tr>';
+      echo '<th>'."Date".'</tr>';
       echo '<tr>';
 
       while ($data = $query->fetch()){
@@ -40,87 +32,69 @@ class noteManager
           echo '<th>'.$data['title'].'</tr>';
           echo '<th>'.$data['description'].'</tr>';
           echo '<th>'.$data['content'].'</tr>';
+          echo '<th>'.$data['save_date'].'</tr>';
           echo '<th>'.'<a id="link_update_note" href="editNote.php?id='.$data['id'].'">'."Modifier".'</a>'.'</th>';
           echo '<th>'.'<a id="link_delete_note" href="member/deleteNote.php?id='.$data['id'].'">'."Supprimer".'</a>'.'</th>';
       }
-
+      var_dump($data);
       echo '</table>';
       $query->closeCursor();
   }
 
 
-  // Fonction permettant de sauvegarder une note dans la BDD
+  /* Fonction permettant de sauvegarder une note dans la BDD */
   function saveNote(){
     $bdd = new database();
     $bdd->connexion();
-    $query = $bdd->getBdd()->prepare('INSERT INTO note(title, description, content) VALUES(:title, :description, :content)');
-    $array = array(
+    // L'auteur de la note correspond a l'email de la session de l'utilisateur connecté
+    $query = $bdd->getBdd()->prepare('INSERT INTO note(note_author, title, description, content) VALUES(:note_author, :title, :description, :content)');
+    $array = array( 'note_author' => $_SESSION['email'],
                     'title' => $_POST['title'],
                     'description' => $_POST['description'],
                     'content' => $_POST['content']);
     $query->execute($array);
     $query->closeCursor();
-    header('Location: view/noteListe.php');
-    echo 'La note est enregistrée';
+
+    // Requête permettant de lier les notes aux utilisateurs l'ayant écrit.
+    echo 'La note est enregistrée';  // ne fonctionne pas
+    header('Location: noteListe.php');   
   }
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  /*public function addNote(note $note)
-  {
-    $q = $this->_db->prepare('INSERT INTO note(title, description, content) VALUES(:title, :description, :content)');
 
-    $q->bindValue(':title', $note->setLastName());
-    $q->bindValue(':description', $note->setFirstName(), PDO::PARAM_INT);
-    $q->bindValue(':content', $note->setEmail(), PDO::PARAM_INT);
+  /* Fonction de modification de la note */
+  function modifyNote(){
+    $bdd = new database();
+    $bdd->connexion();
+    // L'auteur de la note correspond a l'email de la session de l'utilisateur connecté
+    // On met à jour les données selons les modifications apportées dans les champs d'écriture
+    $query = $bdd->getBdd()->prepare('UPDATE note SET title= :title, description= :description, content= :content WHERE note_author= :note_author');
+    $array = array( 'note_author' => $_SESSION['email'],
+                    'title' => $_POST['title'],
+                    'description' => $_POST['description'],
+                    'content' => $_POST['content']);
+    $query->execute($array);
+    $query->closeCursor();
 
-    $q->execute();
+    // Requête permettant de lier les notes aux utilisateurs l'ayant écrit.
+    echo 'La modification a été prise en compte';  // ne fonctionne pas
+    header('Location: noteListe.php'); 
   }
 
-  public function delete(member $member)
-  {
-    $this->_db->exec('DELETE FROM member WHERE id = '.$member->getId());
+
+  /* Fonction qui permet la suppression d'une note choisi au préalable */
+  function deleteNote(){
+    $bdd = new database();
+    $bdd->connexion();
+    // L'auteur de la note correspond a l'email de la session de l'utilisateur connecté
+    $query = $bdd->getBdd()->prepare('DELETE FROM note WHERE id= :id'); // fonction à corriger
+    $query->closeCursor();
+    
+    // Requête permettant de lier les notes aux utilisateurs l'ayant écrit.
+    echo 'La note a été supprimé';  // ne fonctionne pas
+    header('Location: noteListe.php'); 
   }
-
-  // fonction pour récuperer un membre
-  public function get($id)
-  {
-    $id = (int) $id;
-
-    $q = $this->_db->query('SELECT id, lastName, firstName, email FROM member WHERE id = '.$id);
-    $data = $q->fetch(PDO::FETCH_ASSOC);
-
-    return new member($data);
-  }
-/*
-  public function getList()
-  {
-    $member = [];
-
-    $q = $this->_db->query('SELECT id, lastName, firstName, email FROM member ORDER BY id');
-
-    while ($data = $q->fetch(PDO::FETCH_ASSOC))
-    {
-      $member[] = new member($data);
-    }
-
-    return $member;
-  }
-
-  */
+  
+  
+  
+  
 }

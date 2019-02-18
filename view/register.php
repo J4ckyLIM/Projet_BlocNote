@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="blocnote.css">
 
 <?php
+
+
 //require "connectBDD.php";
 require_once "../class/database.php";
 require_once "../class/memberManager.php";

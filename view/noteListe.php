@@ -1,7 +1,10 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="blocnote.css">
+
 <?php
 require_once "../class/database.php";
 require_once "../class/noteManager.php";
-
 ?>
 
 <div class="container">
@@ -12,3 +15,5 @@ require_once "../class/noteManager.php";
         $list->listAllNote()
     ?>
 </div>
+
+</html>

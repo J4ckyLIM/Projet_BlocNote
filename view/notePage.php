@@ -5,12 +5,25 @@
 <?php
 require_once "../class/noteManager.php";
 
+session_start();
+// On vérifie que les champs sont tous remplies au moment d'appuyer sur le bouton 'Enregistrer' 
 if (isset($_POST['save']) && $_POST['save'] == 'save') {
-	if ((isset($_POST['title']) && !empty($_POST['title'])) && (isset($_POST['description']) && !empty($_POST['description'])) && (isset($_POST['content']) && !empty($_POST['content']))) {
+    if ((isset($_POST['title']) && !empty($_POST['title'])) &&
+        (isset($_POST['description']) && !empty($_POST['description'])) && 
+        (isset($_POST['content']) && !empty($_POST['content']))) {
 		$check = new noteManager();
-		$check->saveNote(); 
-	}
+        $check->saveNote();
+    }
+    else{
+        $erreur = "Au moins un des champs est vide.";
+    }
 }
+
+/*if(isset($_POST['cancel']) && $_POST['cancel'] == 'cancel'){
+    header('Location:"noteListe.php"');
+}*/
+
+if (isset($erreur)) echo '<br />',$erreur;
 ?>
 <html>
     <head>
@@ -40,11 +53,11 @@ if (isset($_POST['save']) && $_POST['save'] == 'save') {
                 <a id="olListButton" class="toolButton" href="javascript:void('Insérer/Supprimer la liste numérotée')" title="Liste numérotée" role="button"><i class="fas fa-list-ol"></i></a>
                 </div>  -->
                 <div>
-                        <textarea id="noteContent" name="content" value="<?php if (isset($_POST['content'])) echo htmlentities(trim($_POST['content'])); ?>"></textarea>
+                        <textarea id="noteContent" name="content" value="<?php if (isset($_POST['content'])) echo htmlentities(trim($_POST['content'])); ?>" placeholder="Ecrivez votre note ici"></textarea>
                     </div>
                 <div class="button">
                     <button type="submit" name="save" value="save">Enregistrer</button>
-                    <button type="button">Annuler</button>
+                    <a href ="noteListe.php"> <button type="button" value="cancel">Annuler</button></a>
                 </div>
             </form>
         </div>
