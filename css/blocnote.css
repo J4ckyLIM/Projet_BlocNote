@@ -95,3 +95,24 @@ h1{
     padding: 15px;
     margin: auto;
 }
+
+/* PARTIE NOTEPAGE.PHP */
+
+.form-note {
+    position: relative;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 10px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 15px;
+}
+
+textarea{
+    width: 100%;
+    height: 400px;
+}
