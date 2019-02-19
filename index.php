@@ -25,13 +25,15 @@ if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 
 <body>	
 	<form class="form-signin" action="index.php" method="post">
-	<h1>Yet Another NotePad</h1>
-		<i class="fas fa-edit logo"></i>
+	<h1 class="main-page-title">Yet Another NotePad</h1>
+		<i class="fas fa-edit logo-index"></i>
 		<h2>Connectez-vous</h2>
 			<input class="logs" type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>" placeholder="Votre Email"><br />
 			<input class="logs" type="password" name="pass" value="<?php if (isset($_POST['pass'])) echo htmlentities(trim($_POST['pass'])); ?>" placeholder="Mot de passe"><br />
-			<input class="button" type="submit" name="connexion" value="Connexion">
-			<button class="button" href="view/register.php">S'inscrire</button>
+			<div class="button">
+				<input class="button-signin" type="submit" name="connexion" value="Connexion">
+				<button class="button-signup" href="view/register.php">S'inscrire</button> 
+			</div>
 	</form>
 			
 			<?php

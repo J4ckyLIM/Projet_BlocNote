@@ -23,31 +23,32 @@ if (isset($_POST['save']) && $_POST['save'] == 'Enregistrer') {
     header('Location:"noteListe.php"');
 }*/
 
-if (isset($erreur)) echo '<br />',$erreur;
+if (isset($erreur)) echo $erreur;
 ?>
 <html>
     <head>
-        <title>Yet Another NotePad</title>
+        <title>Yet Another Notepad</title>
     </head>
-    <body>
+    <body class="noteBody">
+        <div id="note-container">
+            <header class="title-field">
+                <i class="fas fa-edit logo-note"></i>
+                <h1 class="note-page-title">Yet Another Notepad</h1>
+            </header>
 <!-- Page principale d'accès aux note -->
+            <div class="form-bloc">
                 <form class="form-note" action="notePage.php" method="post">
-                <h1>Yet Another NotePad</h1>
-                    <label for="noteTitle">Titre :</label>
-                    <input class="noteData" type="text" id="noteTitle" name="title" value="<?php if (isset($_POST['title'])) echo htmlentities(trim($_POST['title'])); ?>" placeholder="Titre de la note">
-              
-                
-                    <label for="noteDescription">Description :</label>
-                    <input class="noteData" id="text" id="noteDescription" name="description" value="<?php if (isset($_POST['description'])) echo htmlentities(trim($_POST['description'])); ?>" placeholder="Description de la note (20 caractères maximum)" maxlength="20">
-               
-                <div>
-                        <textarea class="noteContent" id="noteContent" name="content" value="<?php if (isset($_POST['content'])) echo htmlentities(trim($_POST['content'])); ?>" placeholder="Ecrivez votre note ici"></textarea>
+                    
+                    <input class="noteData" type="text" id="noteTitle" name="title" value="<?php if (isset($_POST['title'])) echo htmlentities(trim($_POST['title'])); ?>" placeholder="Note Title">
+                    <input class="noteData" id="text" id="noteDescription" name="description" value="<?php if (isset($_POST['description'])) echo htmlentities(trim($_POST['description'])); ?>" placeholder="Description (20 characters allowed)" maxlength="20">
+                    <textarea class="noteContent" id="noteContent" name="content" value="<?php if (isset($_POST['content'])) echo htmlentities(trim($_POST['content'])); ?>" placeholder="Note Content"></textarea>
+                <div class="btn-note-submit">
+                    <input class="btn-note-action" type="submit" name="save" value="Enregistrer">
+                    <a href ="noteListe.php"> <button class="btn-note-action" type="button" value="cancel">Annuler</button></a>
                 </div>
-                <div>
-                    <input class="button" type="submit" name="save" value="Enregistrer">
-                    <a href ="noteListe.php"> <button class="button" type="button" value="cancel">Annuler</button></a>
-                </div>
-            </form>
+                </form>
+            </div>
+        </div>
     </body>
     <script src=''></script>
 </html>
