@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/blocnote.css">
+<link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <?php
 require_once "../class/noteManager.php";
@@ -23,7 +23,6 @@ if (isset($_POST['save']) && $_POST['save'] == 'Enregistrer') {
     header('Location:"noteListe.php"');
 }*/
 
-if (isset($erreur)) echo $erreur;
 ?>
 <html>
     <head>
@@ -43,11 +42,16 @@ if (isset($erreur)) echo $erreur;
                     <input class="noteData" id="text" id="noteDescription" name="description" value="<?php if (isset($_POST['description'])) echo htmlentities(trim($_POST['description'])); ?>" placeholder="Description (20 characters allowed)" maxlength="20">
                     <textarea class="noteContent" id="noteContent" name="content" value="<?php if (isset($_POST['content'])) echo htmlentities(trim($_POST['content'])); ?>" placeholder="Note Content"></textarea>
                 <div class="btn-note-submit">
-                    <input class="btn-note-action" type="submit" name="save" value="Enregistrer">
-                    <a href ="noteListe.php"> <button class="btn-note-action" type="button" value="cancel">Annuler</button></a>
+                    <input class="btn-action" type="submit" name="save" value="Enregistrer">
+                    <a href ="noteListe.php"> <button class="btn-action" type="button" value="cancel">Annuler</button></a>
                 </div>
                 </form>
             </div>
+            <script type="text/javascript">
+            <?php
+            if (isset($erreur)) echo "alert('$erreur');";/*'<div class="error">'.$erreur.'</div>'*/ 
+            ?>
+            </script>
         </div>
     </body>
     <script src=''></script>

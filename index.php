@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/blocnote.css">
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <?php
 
@@ -23,7 +24,7 @@ if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 <title>Accueil YAN</title>
 </head>
 
-<body>	
+<body class="noteBody">	
 	<form class="form-signin" action="index.php" method="post">
 	<h1 class="main-page-title">Yet Another NotePad</h1>
 		<i class="fas fa-edit logo-index"></i>
@@ -32,12 +33,10 @@ if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 			<input class="logs" type="password" name="pass" value="<?php if (isset($_POST['pass'])) echo htmlentities(trim($_POST['pass'])); ?>" placeholder="Mot de passe"><br />
 			<div class="button">
 				<input class="button-signin" type="submit" name="connexion" value="Connexion">
-				<button class="button-signup" href="view/register.php">S'inscrire</button> 
+				<button class="button-signup"><a href="view/register.php">S'inscrire</a></button>
 			</div>
 	</form>
 			
-			<?php
-			if (isset($erreur)) echo '<br /><br />',$erreur;
-			?>
+
 </body>
 </html>

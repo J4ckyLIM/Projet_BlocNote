@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="blocnote.css">
+<link rel="stylesheet" href="style.css">
 
 <?php
 require_once "../class/database.php";

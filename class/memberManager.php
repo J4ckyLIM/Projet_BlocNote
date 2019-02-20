@@ -61,7 +61,7 @@ class memberManager
             echo 'Vous êtes connecté !';
         }
         else {
-            echo 'Mauvais identifiant ou mot de passe !';
+            echo '<div class="error">'.'Mauvais identifiant ou mot de passe !'.'</div>';
         }
     }
 
@@ -84,7 +84,7 @@ class memberManager
             header('Location: class/noteListe.php');
         }   
         else{
-            echo 'Un membre possède déjà ce login.';
+            echo '<div class="error">'.'Un membre possède déjà ce login'.'</div>';
         }
     }     
     
