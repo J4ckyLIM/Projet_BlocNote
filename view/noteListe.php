@@ -8,6 +8,9 @@
 require_once "../class/database.php";
 require_once "../class/noteManager.php";
 ?>
+<head>
+    <title>Votre liste de notes</title>
+</head>
 <html>
 <body class="noteBody">
     <div id="note-container">
