@@ -75,16 +75,16 @@ class memberManager
         $test = $query->fetch();
         if($test['count_email'] == 0){ 
             $this->insertMember();
-            echo "<div class='alert alert-success'>Le compte a été crée.</div>";
+            echo '<script type="text/javascript">'."alert('Le compte a été créer avec succès')".'</script>';
 
     // une fois le compte créer, l'utilisateur est redirigé sur la page principale
             session_start();
             $_SESSION['email'] = $_POST['email'];
             exit();
-            header('Location: class/noteListe.php');
+            header('Location: noteListe.php');
         }   
         else{
-            echo '<div class="error">'.'Un membre possède déjà ce login'.'</div>';
+            echo  '<script type="text/javascript">'."alert('Un membre possède déjà cet email')".'</script>';
         }
     }     
     

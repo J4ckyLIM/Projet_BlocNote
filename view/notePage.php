@@ -50,10 +50,14 @@ if (isset($_POST['save']) && $_POST['save'] == 'Enregistrer') {
             </div>
             <script type="text/javascript">
             <?php
-            if (isset($erreur)) echo "alert('$erreur');";/*'<div class="error">'.$erreur.'</div>'*/ 
+            if (isset($erreur)) echo "alert('$erreur');";
             ?>
             </script>
         </div>
+        <footer>
+            <a title="GitHub" href="https://github.com/J4ckyLIM"><i class="fab fa-github info-logo"></i></a>
+            <a title="LinkedIn" href="https://www.linkedin.com/in/jacky-lim123/"><i class="fab fa-linkedin info-logo"></i></a>
+	    </footer>
     </body>
     <script src=''></script>
 </html>

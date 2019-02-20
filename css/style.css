@@ -8,6 +8,27 @@ body{
     background-position: center;
 } 
 
+/******* GITHUB/LINKEDIN LOGO *******/
+
+.info-logo-index{
+    font-size: 30px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.info-logo{
+    font-size: 30px;
+    margin-bottom: 60px;
+    margin-right: 20px;
+}
+
+.fa-linkedin{
+    color: #0077b5;
+}
+
+.fa-github{
+    color:#24292e;
+}
 input, button{
     font-family: 'Carter One', cursive;
 }

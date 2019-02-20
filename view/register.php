@@ -59,6 +59,10 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
             <input class="btn-action" type="submit" name="inscription" value="Inscription">
         </form>
     </div>
+    <footer>
+		<a title="GitHub" href="https://github.com/J4ckyLIM"><i class="fab fa-github info-logo"></i></a>
+		<a title="LinkedIn" href="https://www.linkedin.com/in/jacky-lim123/"><i class="fab fa-linkedin info-logo"></i></a>
+	</footer>
 <?php
 if (isset($erreur)) echo '<div class="error">'.$erreur.'</div>';
 ?>

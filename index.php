@@ -36,7 +36,10 @@ if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 				<button class="button-signup"><a href="view/register.php">S'inscrire</a></button>
 			</div>
 	</form>
-			
+	<footer>
+		<a title="GitHub" href="https://github.com/J4ckyLIM"><i class="fab fa-github info-logo-index"></i></a>
+		<a title="LinkedIn" href="https://www.linkedin.com/in/jacky-lim123/"><i class="fab fa-linkedin info-logo-index"></i></a>
+	</footer>			
 
 </body>
 </html>
