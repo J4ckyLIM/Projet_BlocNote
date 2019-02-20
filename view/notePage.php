@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <?php
 require_once "../class/noteManager.php";
@@ -43,7 +44,7 @@ if (isset($_POST['save']) && $_POST['save'] == 'Enregistrer') {
                     <textarea class="noteContent" id="noteContent" name="content" value="<?php if (isset($_POST['content'])) echo htmlentities(trim($_POST['content'])); ?>" placeholder="Note Content"></textarea>
                 <div class="btn-note-submit">
                     <input class="btn-action" type="submit" name="save" value="Enregistrer">
-                    <a href ="noteListe.php"> <button class="btn-action" type="button" value="cancel">Annuler</button></a>
+                    <a href ="noteListe.php"> <button class="btn-action2" type="button" value="cancel">Annuler</button></a>
                 </div>
                 </form>
             </div>

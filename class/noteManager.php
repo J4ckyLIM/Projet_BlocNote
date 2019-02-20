@@ -17,22 +17,20 @@ class noteManager
   function listAllNote(){
       $bdd = new database();
       $bdd->connexion();
-      $query = $bdd->getBdd()->prepare('SELECT title, description, content, save_date FROM note WHERE id=1');
+      $query = $bdd->getBdd()->prepare('SELECT title, description, content, save_date FROM note WHERE id=id');
 
-      echo '<table>';
+      echo '<table class="noteTable">';
       echo '<tr>';
-      echo '<th>'."Titre".'</tr>';
-      echo '<th>'."Description".'</tr>';
-      echo '<th>'."Contenu".'</tr>';
-      echo '<th>'."Date".'</tr>';
-      echo '<tr>';
+      echo '<th>'."Titre".'</th>';
+      echo '<th>'."Description".'</th>';
+      echo '<th>'."Date".'</th>';
+      echo '</tr>';
 
       while ($data = $query->fetch()){
           echo '<tr>';
-          echo '<th>'.$data['title'].'</tr>';
-          echo '<th>'.$data['description'].'</tr>';
-          echo '<th>'.$data['content'].'</tr>';
-          echo '<th>'.$data['save_date'].'</tr>';
+          echo '<th>'.$data['title'].'</th>';
+          echo '<th>'.$data['description'].'</th>';
+          echo '<th>'.$data['save_date'].'</th>';
           echo '<th>'.'<a id="link_update_note" href="editNote.php?id='.$data['id'].'">'."Modifier".'</a>'.'</th>';
           echo '<th>'.'<a id="link_delete_note" href="member/deleteNote.php?id='.$data['id'].'">'."Supprimer".'</a>'.'</th>';
       }
