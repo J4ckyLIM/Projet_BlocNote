@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="../css/style.css">
-<link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
 <?php
-
-
-//require "connectBDD.php";
-require_once "../class/database.php";
-require_once "../class/memberManager.php";
+session_destroy();
 
 // On regarde si l'utilisateur a remplie le formulaire
 if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
@@ -26,6 +16,7 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
         }
 
         // On vérifie que l'email servant de login n'est pas déjà attribué/utilisé grâce à la fonction checkUniq()
+        // Par la même occasion, il sera connecté si il est bien unique
         else{
             $mm = new memberManager();
             $mm->checkUniq();
@@ -37,19 +28,13 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
 }
 
 ?>
-
-<html>
-<head>
-<title>Inscription YAN</title>
-</head>
-
 <body class="noteBody">
     <div id="note-container">
         <header class="title-field">
             <i class="fas fa-edit logo-note"></i>
             <h1 class="note-page-title">Yet Another Notepad</h1>
         </header>
-        <form  class="form-signup" action="register.php" method="post">
+        <form  class="form-signup" action="index.php?page=register" method="post">
             <h2>Inscription</h2>
             <input class="userData" type="text" name="lastName" value="<?php if (isset($_POST['lastName'])) echo htmlentities(trim($_POST['lastName'])); ?>" placeholder="Votre Nom"><br />
             <input class="userData" type="text" name="firstName" value="<?php if (isset($_POST['firstName'])) echo htmlentities(trim($_POST['firstName'])); ?>" placeholder="Votre Prénom"><br />
@@ -59,13 +44,8 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
             <input class="btn-action" type="submit" name="inscription" value="Inscription">
         </form>
     </div>
-    <footer>
-		<a title="GitHub" href="https://github.com/J4ckyLIM"><i class="fab fa-github info-logo"></i></a>
-		<a title="LinkedIn" href="https://www.linkedin.com/in/jacky-lim123/"><i class="fab fa-linkedin info-logo"></i></a>
-	</footer>
+
 <?php
 if (isset($erreur)) echo '<div class="error">'.$erreur.'</div>';
 ?>
-</body>
-</html>
 

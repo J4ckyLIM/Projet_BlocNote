@@ -57,7 +57,7 @@ class memberManager
             $_SESSION['email'] = $_POST['email'];
 
             // l'utilisateur est renvoyé sur la liste des notes une fois connecté
-            header('Location: view/noteListe.php');
+            header('Location: index.php?page=noteListe');
             echo 'Vous êtes connecté !';
         }
         else {
@@ -75,13 +75,11 @@ class memberManager
         $test = $query->fetch();
         if($test['count_email'] == 0){ 
             $this->insertMember();
-            echo '<script type="text/javascript">'."alert('Le compte a été créer avec succès')".'</script>';
 
-    // une fois le compte créer, l'utilisateur est redirigé sur la page principale
-            session_start();
-            $_SESSION['email'] = $_POST['email'];
-            exit();
-            header('Location: noteListe.php');
+    // une fois le compte créer, l'utilisateur est redirigé sur la page principale 
+            echo '<script type="text/javascript">'."alert('Le compte a été créer avec succès')".'</script>';
+            header('Location: index.php?page=register');
+            //header('Location: index.php?page=home');
         }   
         else{
             echo  '<script type="text/javascript">'."alert('Un membre possède déjà cet email')".'</script>';

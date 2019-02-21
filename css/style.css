@@ -12,14 +12,8 @@ body{
 
 .info-logo-index{
     font-size: 30px;
-    margin-top: 20px;
     margin-right: 20px;
-}
-
-.info-logo{
-    font-size: 30px;
-    margin-bottom: 60px;
-    margin-right: 20px;
+    margin-bottom: 40px;
 }
 
 .fa-linkedin{
@@ -99,7 +93,7 @@ h2{
 }
 
 /****** BUTTONS ******/
-.button-signin, .button-signup, .btn-action, .btn-action2{
+.button-signin, .button-signup, .btn-action, .btn-action2, .btn-action3{
     background-color: #009ee0;
     border-color:#009ee0;
     height: 40px;
@@ -153,6 +147,7 @@ h2{
 
 .noteContent{
     width: 100%;
+    max-width: 970px;
     height: 400px;
     border-radius: 5px;
     border: 1px solid #009ee0;
@@ -169,6 +164,11 @@ h2{
 
 .btn-action2{
     margin-right: 10px;
+    background-color: red;
+    border-color: red;
+}
+
+.btn-action3{
     background-color: red;
     border-color: red;
 }
@@ -235,16 +235,21 @@ h2{
     justify-content: center;
 }
 
+.btn-newNote{
+    margin-bottom: 20px;
+}
+
 /**** BODY OF THE TABLE CREATED WHILE SELECTING NOTES OF THE USER ****/
 tbody{
     width: 900px;
     height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border: 5px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #ffffff;
     justify-content: center;
+    padding-bottom: 5px;
 }
 tr{
     width: 100%;
@@ -255,8 +260,6 @@ tr{
 
 th{
     width: 33%;
-    height: 100%;
-    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -272,3 +275,11 @@ th{
     margin: auto;
 }
 
+.fa-pencil-alt, .fa-trash-alt{
+    font-size: 30px;
+    color: black;
+}
+
+.table-info{
+    color: #009ee0;
+}
