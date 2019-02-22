@@ -2,20 +2,26 @@
 require_once "database.php";
 class noteManager
 {  
+
+  /* Lorsque que l'utilisateur appuis sur le bouton "modifier", 
+     On recupère les données de la note choisis puis on envoie une page permettant la modification de la note */
   function selectNote(){
     $bdd = new database();
     $bdd->connexion();
     $id = $_GET['id'];
-    $query = $bdd->getBdd()->prepare('SELECT title, description, content FROM note WHERE id=:id');
+    $query = $bdd->getBdd()->prepare('SELECT id, title, description, content FROM note WHERE id=:id');
     $array = array( 'id' => $id);
     $query->execute($array);
     if ($data = $query->fetch())
     {
-      echo '<form action="index.php?page=notePage?id='.$data['id'].'" method="post">';
-      echo '<input type="text" name="title_update" value="'.$data['title'].'"/>'.'</br>'.'</br>';
-      echo '<input type="text" maxlength="20"name="description_update" value="'.$data['description'].'"/>'.'</br>'.'</br>';
-      echo '<input type="text" name="content_update" value="'.$data['content'].'"/>'.'</br>'.'</br>';
-      echo '<input type="submit" name="note_update" value="Modifier"/>';
+      echo '<form class="form-note" action="edit.php?id='.$data['id'].'" method="post">';
+      echo '<input class="noteData" type="text" name="title_update" value="'.$data['title'].'"/>';
+      echo '<input class="noteData" type="text" maxlength="20"name="description_update" value="'.$data['description'].'"/>';
+      echo '<textarea class="noteContent" name="content_update">'.$data['content'].'</textarea>';
+      echo '<div class="btn-note-submit">';
+      echo '<input class="btn-action" type="submit" name="note_update" value="Modifier"/>';
+      echo '<a href ="../index.php?page=noteListe">'.'<button class="btn-action2" type="button" value="cancel">'.'Annuler'.'</button>'.'</a>';
+      echo '</div>';
       echo '</form>';
     }
     else
@@ -24,10 +30,20 @@ class noteManager
     }
     $query->closeCursor();
   }
-
-  function updateNoteId()
+  /* Fonction qui permet d'enregistrer les modifications apportées à une note */
+  function updateNote()
   {
-      return 'UPDATE note SET title= :title, description= :description, content= :content WHERE id= :id';
+     $bdd = new database();
+     $bdd->connexion();
+     $id = $_GET['id'];
+     $query = $bdd->getBdd()->prepare('UPDATE note SET title= :title, description= :description, content= :content WHERE id= :id');
+     $array = array('id' => $id,
+                    'title' => $_POST['title_update'],
+                    'description' => $_POST['description_update'],
+                    'content' => $_POST['content_update']);
+    $query->execute($array);
+    $query->closeCursor();
+    header('Location: ../index.php?page=noteListe'); 
   }
 
   function deleteNoteId()
@@ -40,7 +56,7 @@ class noteManager
   function listAllNote(){
       $bdd = new database();
       $bdd->connexion();
-      $query = $bdd->getBdd()->prepare('SELECT id, title, description, save_date FROM note WHERE note_author=:id');
+      $query = $bdd->getBdd()->prepare('SELECT id, title, description, save_date FROM note WHERE note_author=:id ORDER BY save_date DESC');
       $array = array( 'id' => $_SESSION['id']);
       $query->execute($array);
 
@@ -58,7 +74,7 @@ class noteManager
           echo '<th>'.$data['title'].'</th>';
           echo '<th>'.$data['description'].'</th>';
           echo '<th>'.$data['save_date'].'</th>';
-          echo '<th>'.'<a id="link_update_note" href="index.php?page=noteListe?id='.$data['id'].'">'.'<input type="submit" class="btn-action" value="Modifier">'.'</a>'.'</th>';
+          echo '<th>'.'<a id="link_update_note" href="view/edit.php?id='.$data['id'].'">'.'<input type="submit" class="btn-action" value="Modifier">'.'</a>'.'</th>';
           echo '<th>'.'<a id="link_delete_note" href="member/deleteNote.php?id='.$data['id'].'">'.'<button class="btn-action3" type="button" value="delete">'.'Supprimer'.'</button>'.'</a>'.'</th>';
       }
       echo '</table>';
