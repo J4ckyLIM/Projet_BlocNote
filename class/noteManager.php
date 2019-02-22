@@ -46,13 +46,47 @@ class noteManager
     header('Location: ../index.php?page=noteListe'); 
   }
 
-  function deleteNoteId()
+  /* Fonction qui permet la suppression d'une note choisi au préalable */
+  function deleteNote()
   {
-      return 'DELETE FROM note WHERE id= :id';
+    $bdd = new database();
+    $bdd->connexion();
+    $id = $_GET['id'];
+    $query = $bdd->getBdd()->prepare('DELETE FROM note WHERE id= :id');
+    $array = array('id' => $id);
+    $query->execute($array);
+    $query->closeCursor();
+    header('Location: ../index.php?page=noteListe'); 
   }
 
-  /* Fonction qui permet de recuperer TOUTES les données des notes sous forme d'un tableau */
+  function selectNoteToDelete(){
+    $bdd = new database();
+    $bdd->connexion();
+    $id = $_GET['id'];
+    $query = $bdd->getBdd()->prepare('SELECT id, title, description, content FROM note WHERE id=:id');
+    $array = array( 'id' => $id);
+    $query->execute($array);
+    if ($data = $query->fetch())
+    {
+      echo '<div class="note-delete">';
+      echo '<h2>'.'Êtes-vous sûr de vouloir supprimer cette note?'.'</h2>';
+      echo '<div class="btn-note-submit">';
+      echo '<input class="btn-action2" type="submit" name="note_delete" value="Supprimer"/>';
+      echo '<a href ="../index.php?page=noteListe">'.'<button class="btn-action" type="button" value="cancel">'.'Annuler'.'</button>'.'</a>';
+      echo '</div>';
+      echo '</div>';
+    }
+    else
+    {
+      echo '<p>'."Aucun résultat trouvé.".'</p>';
+    }
+    $query->closeCursor();
+  }
 
+  //function 
+
+  /* Fonction qui permet de recuperer TOUTES les données des notes sous forme d'un tableau */
+  /* Les données seront triées par ordre chronologique, du plus récent au moins récent */
   function listAllNote(){
       $bdd = new database();
       $bdd->connexion();
@@ -74,8 +108,8 @@ class noteManager
           echo '<th>'.$data['title'].'</th>';
           echo '<th>'.$data['description'].'</th>';
           echo '<th>'.$data['save_date'].'</th>';
-          echo '<th>'.'<a id="link_update_note" href="view/edit.php?id='.$data['id'].'">'.'<input type="submit" class="btn-action" value="Modifier">'.'</a>'.'</th>';
-          echo '<th>'.'<a id="link_delete_note" href="member/deleteNote.php?id='.$data['id'].'">'.'<button class="btn-action3" type="button" value="delete">'.'Supprimer'.'</button>'.'</a>'.'</th>';
+          echo '<th>'.'<a id="link_update_note" href="view/noteEdit.php?id='.$data['id'].'">'.'<input type="submit" class="btn-action" value="Modifier">'.'</a>'.'</th>';
+          echo '<th>'.'<a id="link_delete_note" href="view/noteDelete.php?id='.$data['id'].'">'.'<input type="submit" class="btn-action3" value="Supprimer">'.'</a>'.'</th>';
       }
       echo '</table>';
       $query->closeCursor();
@@ -119,22 +153,4 @@ class noteManager
     echo 'La modification a été prise en compte';  // ne fonctionne pas
     header('Location: noteListe.php'); 
   }
-
-
-  /* Fonction qui permet la suppression d'une note choisi au préalable */
-  function deleteNote(){
-    $bdd = new database();
-    $bdd->connexion();
-    // L'auteur de la note correspond a l'email de la session de l'utilisateur connecté
-    $query = $bdd->getBdd()->prepare('DELETE FROM note WHERE id= :id'); // fonction à corriger
-    $query->closeCursor();
-    
-    // Requête permettant de lier les notes aux utilisateurs l'ayant écrit.
-    echo 'La note a été supprimé';  // ne fonctionne pas
-    header('Location: noteListe.php'); 
-  }
-  
-  
-  
-  
 }

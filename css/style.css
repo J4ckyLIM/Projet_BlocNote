@@ -44,7 +44,7 @@ html, body{
 }
 
 /***** FORMS *****/
-.form-signin, .logs, .form-note, .form-signup{
+.form-signin, .logs, .form-note, .form-signup, .note-delete{
     position: relative;
     box-sizing: border-box;
     height: auto;
@@ -139,7 +139,7 @@ h2{
 
 /********  NOTEPAGE.PHP *********/
 
-.form-note {
+.form-note, .note-delete{
     height: 100%;
     max-width: 1000px;
     padding: 15px;
@@ -260,6 +260,7 @@ tr{
 
 th{
     width: 33%;
+    max-width: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
