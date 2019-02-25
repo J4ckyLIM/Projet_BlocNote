@@ -184,6 +184,7 @@ h2{
     width: 100%;
     height: 7.5%;
     display: flex;
+    justify-content: space-between;
 }
 
 .note-page-title{
@@ -237,6 +238,10 @@ h2{
 
 .btn-newNote{
     margin-bottom: 20px;
+}
+
+.title-logo{
+    display: flex;
 }
 
 /**** BODY OF THE TABLE CREATED WHILE SELECTING NOTES OF THE USER ****/

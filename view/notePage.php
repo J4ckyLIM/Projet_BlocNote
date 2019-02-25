@@ -24,8 +24,15 @@ if (isset($_POST['save']) && $_POST['save'] == 'Enregistrer') {
     <body class="noteBody">
         <div id="note-container">
             <header class="title-field">
-                <i class="fas fa-edit logo-note"></i>
-                <h1 class="note-page-title">Yet Another Notepad</h1>
+                <div class="title-logo">
+                    <i class="fas fa-edit logo-note"></i>
+                    <h1 class="note-page-title">Yet Another Notepad</h1>
+                </div>
+                <div class="dc-container">  
+                    <form class="form-signin" action="index.php?page=noteListe" method="post">
+                        <input class="btn-action2" type="submit" name="disconnect" value="Déconnexion">
+                    </form>
+                </div>
             </header>
 <!-- Page principale d'accès aux note -->
             <div class="form-bloc">

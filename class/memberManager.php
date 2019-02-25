@@ -84,6 +84,15 @@ class memberManager
         else{
             echo  '<script type="text/javascript">'."alert('Un membre possède déjà cet email')".'</script>';
         }
-    }     
+    }
+    
+    /* Fonction utiliser pour deconnecter un membre */
+    public function dcMember(){
+        session_start();
+        session_unset();
+        session_destroy();
+        header('Location: index.php');
+        exit();
+    }
     
 }
