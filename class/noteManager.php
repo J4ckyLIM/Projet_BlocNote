@@ -14,7 +14,7 @@ class noteManager
     $query->execute($array);
     if ($data = $query->fetch())
     {
-      echo '<form class="form-note" action="edit.php?id='.$data['id'].'" method="post">';
+      echo '<form class="form-note" action="noteEdit.php?id='.$data['id'].'" method="post">';
       echo '<input class="noteData" type="text" name="title_update" value="'.$data['title'].'"/>';
       echo '<input class="noteData" type="text" maxlength="20"name="description_update" value="'.$data['description'].'"/>';
       echo '<textarea class="noteContent" name="content_update">'.$data['content'].'</textarea>';
@@ -68,6 +68,7 @@ class noteManager
     $query->execute($array);
     if ($data = $query->fetch())
     {
+      echo '<form class="form-note" action="noteDelete.php?id='.$data['id'].'" method="post">';
       echo '<div class="note-delete">';
       echo '<h2>'.'Êtes-vous sûr de vouloir supprimer cette note?'.'</h2>';
       echo '<div class="btn-note-submit">';
@@ -75,6 +76,7 @@ class noteManager
       echo '<a href ="../index.php?page=noteListe">'.'<button class="btn-action" type="button" value="cancel">'.'Annuler'.'</button>'.'</a>';
       echo '</div>';
       echo '</div>';
+      echo '</form>';
     }
     else
     {
