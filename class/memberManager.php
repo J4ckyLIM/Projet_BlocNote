@@ -41,7 +41,7 @@ class memberManager
     
 
     /* Fonction qui permet la connexion de l'utilisateur en vérifiant email et mot de passe */
-    function findMember()
+    public function findMember()
     {
         $bdd = new database();
         $bdd->connexion();
@@ -66,7 +66,7 @@ class memberManager
     }
 
     /* Fonction pour prouver l'unicité d'un email/identifiant */
-    function checkUniq()
+    public function checkUniq()
     {
         $bdd = new database();
         $bdd->connexion();

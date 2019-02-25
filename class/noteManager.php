@@ -3,9 +3,9 @@ require_once "database.php";
 class noteManager
 {  
 
-  /* Lorsque que l'utilisateur appuis sur le bouton "modifier", 
-     On recupère les données de la note choisis puis on envoie une page permettant la modification de la note */
-  function selectNote(){
+  /* Lorsque que l'utilisateur appuis sur le bouton "modifier" */
+  /* On recupère les données de la note choisis puis on envoie une page permettant la modification de la note */
+  public function selectNote(){
     $bdd = new database();
     $bdd->connexion();
     $id = $_GET['id'];
@@ -31,7 +31,7 @@ class noteManager
     $query->closeCursor();
   }
   /* Fonction qui permet d'enregistrer les modifications apportées à une note */
-  function updateNote()
+  public function updateNote()
   {
      $bdd = new database();
      $bdd->connexion();
@@ -47,7 +47,7 @@ class noteManager
   }
 
   /* Fonction qui permet la suppression d'une note choisi au préalable */
-  function deleteNote()
+  public function deleteNote()
   {
     $bdd = new database();
     $bdd->connexion();
@@ -59,7 +59,7 @@ class noteManager
     header('Location: ../index.php?page=noteListe'); 
   }
 
-  function selectNoteToDelete(){
+  public function selectNoteToDelete(){
     $bdd = new database();
     $bdd->connexion();
     $id = $_GET['id'];
@@ -85,11 +85,9 @@ class noteManager
     $query->closeCursor();
   }
 
-  //function 
-
   /* Fonction qui permet de recuperer TOUTES les données des notes sous forme d'un tableau */
   /* Les données seront triées par ordre chronologique, du plus récent au moins récent */
-  function listAllNote(){
+  public function listAllNote(){
       $bdd = new database();
       $bdd->connexion();
       $query = $bdd->getBdd()->prepare('SELECT id, title, description, save_date FROM note WHERE note_author=:id ORDER BY save_date DESC');
@@ -119,7 +117,7 @@ class noteManager
 
 
   /* Fonction permettant de sauvegarder une note dans la BDD */
-  function saveNote(){
+  public function saveNote(){
     $bdd = new database();
     $bdd->connexion();
     // L'auteur de la note correspond a l'email de la session de l'utilisateur connecté
@@ -131,14 +129,14 @@ class noteManager
     $query->execute($array);
     $query->closeCursor();
 
-    // Requête permettant de lier les notes aux utilisateurs l'ayant écrit.
+    /* Requête permettant de lier les notes aux utilisateurs l'ayant écrit. */
     echo 'La note est enregistrée';  // ne fonctionne pas
     header('Location: index.php?page=noteListe');   
   }
 
 
   /* Fonction de modification de la note */
-  function modifyNote(){
+  public function modifyNote(){
     $bdd = new database();
     $bdd->connexion();
     // L'auteur de la note correspond a l'email de la session de l'utilisateur connecté
