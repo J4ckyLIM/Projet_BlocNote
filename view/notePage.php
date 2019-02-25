@@ -12,10 +12,6 @@ if (isset($_POST['save']) && $_POST['save'] == 'Enregistrer') {
     }
 }
 
-/*if(isset($_POST['cancel']) && $_POST['cancel'] == 'cancel'){
-    header('Location:"noteListe.php"');
-}*/
-
 ?>
 <html>
     <head>

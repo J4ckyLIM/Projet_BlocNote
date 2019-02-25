@@ -5,11 +5,12 @@ require_once "../class/database.php";
 require_once "../class/noteManager.php";
 
 session_start();
-
+/* On regarde si l'utilisateur clique sur le bouton "modifier" */
 if (isset($_POST['note_update']) && $_POST['note_update'] == 'Modifier') {
     if ((isset($_POST['title_update']) && !empty($_POST['title_update'])) &&
         (isset($_POST['description_update']) && !empty($_POST['description_update'])) && 
         (isset($_POST['content_update']) && !empty($_POST['content_update']))) {
+        /* Si toutes les conditions sont remplies alors on met à jour la note dans la BDD */
 		$check = new noteManager();
         $check->updateNote();
     }

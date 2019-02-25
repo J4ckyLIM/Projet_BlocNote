@@ -6,6 +6,7 @@ require_once "../class/noteManager.php";
 
 session_start();
 
+/* On regarde si l'utilisateur a appuyer sur le bouton supprimer */ 
 if (isset($_POST['note_delete']) && $_POST['note_delete'] == 'Supprimer') {
 	$check = new noteManager();
     $check->deleteNote();  

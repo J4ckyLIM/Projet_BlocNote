@@ -3,6 +3,7 @@ require_once "database.php";
 
 class memberManager
 {
+    /*  Cette partie correspondra à la partie de l'admin 
     function selectAllMember()
     {
         return 'SELECT * FROM member';
@@ -13,15 +14,11 @@ class memberManager
         return 'SELECT * FROM member WHERE id= :id';
     }
 
-    function updateMemberId()
-    {
-        return 'UPDATE member SET lastName= :lastName, firstName= :firstName, email= :email WHERE id= :id';
-    }
-
     function deleteMemberId()
     {
         return 'DELETE FROM member WHERE id= :id';
     }
+    */
 
 
     /* Fonction pour ajouter un membre à la BDD */
@@ -76,10 +73,9 @@ class memberManager
         if($test['count_email'] == 0){ 
             $this->insertMember();
 
-    // une fois le compte créer, l'utilisateur est redirigé sur la page principale 
+    // une fois le compte créer, l'utilisateur est redirigé sur la page de connexion 
             echo '<script type="text/javascript">'."alert('Le compte a été créer avec succès')".'</script>';
-            header('Location: index.php?page=register');
-            //header('Location: index.php?page=home');
+            header('Location: index.php');
         }   
         else{
             echo  '<script type="text/javascript">'."alert('Un membre possède déjà cet email')".'</script>';

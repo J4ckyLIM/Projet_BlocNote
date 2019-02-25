@@ -59,6 +59,7 @@ class noteManager
     header('Location: ../index.php?page=noteListe'); 
   }
 
+  /* Fonction qui récupère les données de la note que l'utilisateur souhaite supprimer */
   public function selectNoteToDelete(){
     $bdd = new database();
     $bdd->connexion();

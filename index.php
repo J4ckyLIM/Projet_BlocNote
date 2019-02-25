@@ -17,14 +17,10 @@ if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 // On appele le template contenant le header
 require_once "template/header.php";
 if(isset($_GET['page'])){
-	// CONDITION DINEXISTANCE A FAIRE POUR LES FICHIERS
+	// Condition d'existence pour les fichiers
 	file_exists('view');
 	include "view/". $_GET['page'].'.php';
 }else{
-	//if()
-	//si le membre est connecté --> inclure directement la page
-
-	// Sinon
 	include "view/home.php";
 }
 // On appele le template contenant le footer
