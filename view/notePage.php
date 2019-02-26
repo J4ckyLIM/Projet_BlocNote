@@ -19,7 +19,7 @@ if (isset($_POST['save']) && $_POST['save'] == 'Enregistrer') {
     </head>
     <body class="noteBody">
         <div id="note-container">
-            <header class="title-field">
+            <header class="title-field2">
                 <div class="title-logo">
                     <i class="fas fa-edit logo-note"></i>
                     <h1 class="note-page-title">Yet Another Notepad</h1>
